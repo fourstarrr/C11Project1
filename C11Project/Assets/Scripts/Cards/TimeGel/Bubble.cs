@@ -41,10 +41,7 @@ public class Bubble : MonoBehaviour
         
         if (collision.gameObject.tag == Cards.instance.enemyTag)
         {
-            if (collision.GetComponent<Enemy>())
-            {
-                collision.GetComponent<Enemy>().speed *= TimeGel.instance.decelerationRatio;
-            }
+            Enemy.instance.speed *= TimeGel.instance.decelerationRatio;
             //collision.GetComponent<Animator>().speed *= TimeGel.instance.decelerationRatio;
         }
     }
@@ -52,10 +49,7 @@ public class Bubble : MonoBehaviour
     {
         if (collision.gameObject.tag == Cards.instance.enemyTag)
         {
-            if (collision.GetComponent<Enemy>())
-            {
-                collision.GetComponent<Enemy>().speed /= TimeGel.instance.decelerationRatio;
-            }
+            Enemy.instance.speed /= TimeGel.instance.decelerationRatio;
             
             //collision.GetComponent<Animator>().speed /= TimeGel.instance.decelerationRatio;
         }

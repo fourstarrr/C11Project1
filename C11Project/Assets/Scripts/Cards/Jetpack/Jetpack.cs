@@ -16,7 +16,7 @@ public class Jetpack : MonoBehaviour
 
     [Header("喷气背包参数"), Tooltip("向上位移距离"), Range(1,50)]
     public float upDistance;
-    [Tooltip("喷气背包速度"), Range(100,2000)]
+    [Tooltip("喷气背包速度"), Range(1,10)]
     public float jetpackSpeed;
     [Tooltip("离地解除滑翔距离"), Range(1, 50)]
     public float reachGroundDistance;
@@ -112,7 +112,7 @@ public class Jetpack : MonoBehaviour
     /// </summary>
     void UpwardDisplacement()
     {
-        Cards.instance.player.GetComponent<Rigidbody2D>().velocity = Vector2.up * jetpackSpeed * Time.deltaTime;
+        Cards.instance.player.GetComponent<Rigidbody2D>().velocity = Vector2.up * jetpackSpeed ;
     }
     /// <summary>
     /// 是否飞到指定高度

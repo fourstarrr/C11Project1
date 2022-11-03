@@ -6,15 +6,10 @@ public class GeneralEffect : MonoBehaviour
 {
     public static GeneralEffect instance;
 
-    GameObject[] allEnermy;
-    [Header("有速度的物品标签"), Tooltip("Enemy的tag名")]
-    public string enermyTag = "Enemy";
-
     [Header("子弹时间参数"), Tooltip("子弹时间减速效果,值越大减速效果越明显"), Range(0.1f, 1)]
     public float decelerationRatio;
     [Tooltip("子弹时间长度,值越大减速效果越明显"), Range(0.1f, 5)]
     public float bulletTime;
-
     
     // Start is called before the first frame update
     void Start()
@@ -23,18 +18,12 @@ public class GeneralEffect : MonoBehaviour
             Destroy(instance);
         instance = this;
 
-        FindAllObjectWithSpeed();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-    void FindAllObjectWithSpeed()
-    {
-        if (enermyTag == "") enermyTag = "enemy";
-        allEnermy = GameObject.FindGameObjectsWithTag(enermyTag);
     }
     /// <summary>
     /// 使用通用效果子弹时间，让所有物体减速一段时间
@@ -46,11 +35,7 @@ public class GeneralEffect : MonoBehaviour
 
         StartCoroutine(DecelerationBubbleSpeed());
         StartCoroutine(PlayerBulletTime());
-        foreach (GameObject enemy in allEnermy)
-        {
-            //Debug.Log(enemy.name);
-            StartCoroutine(EnemyBulletTime(enemy));
-        }
+        StartCoroutine(EnemyBulletTime());
     }
     /// <summary>
     /// 重置跳跃次数
@@ -76,12 +61,11 @@ public class GeneralEffect : MonoBehaviour
     /// </summary>
     /// <param name="enemy"></param>
     /// <returns></returns>
-    IEnumerator EnemyBulletTime(GameObject enemy)
+    IEnumerator EnemyBulletTime()
     {
-        if(!enemy.GetComponent<Enemy>()) yield break;
-        enemy.GetComponent<Enemy>().speed *= decelerationRatio;
+        Enemy.instance.speed *= decelerationRatio;
         yield return new WaitForSeconds(bulletTime);
-        enemy.GetComponent<Enemy>().speed /= decelerationRatio;
+        Enemy.instance.speed /= decelerationRatio;
     }
     /// <summary>
     /// 玩家的子弹时间协程
@@ -90,9 +74,8 @@ public class GeneralEffect : MonoBehaviour
     /// <returns></returns>
     IEnumerator PlayerBulletTime()
     {
-        if (!Cards.instance.player.GetComponent<PlayerController>()) yield break;
-        Cards.instance.player.GetComponent<PlayerController>().speed *= decelerationRatio;
+        PlayerController.instance.speed *= decelerationRatio;
         yield return new WaitForSeconds(bulletTime);
-        Cards.instance.player.GetComponent<PlayerController>().speed /= decelerationRatio;
+        PlayerController.instance.speed /= decelerationRatio;
     }
 }

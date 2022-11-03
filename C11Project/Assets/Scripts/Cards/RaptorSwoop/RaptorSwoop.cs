@@ -45,9 +45,9 @@ public class RaptorSwoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        OnGroundCheck();
         if (isUsingRaptorSwoop)
         {
+            OnGroundCheck();
             if (isEjectionForward) EjectionForward();
             //快速垂直下落
             RapidDown();
